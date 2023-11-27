@@ -4,7 +4,6 @@ package com.indah.sandboxingserver.controller;
 import com.indah.sandboxingserver.config.ServerResponse;
 import com.indah.sandboxingserver.db.DBManager;
 import com.indah.sandboxingserver.request.ColumnRequest;
-import com.indah.sandboxingserver.service.DescriptiveService;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

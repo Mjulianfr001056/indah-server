@@ -1,6 +1,5 @@
 package com.indah.sandboxingserver.service;
 
-import com.indah.sandboxingserver.config.ServerResponse;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 

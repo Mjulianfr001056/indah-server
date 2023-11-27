@@ -67,18 +67,18 @@ public class SparkTestController {
     ));
 
     static Vector<Perizinan> izin = new Vector<>(Arrays.asList(
-            new Perizinan("1", users.get(1), Date.valueOf("2021-07-31"), katalog.get(1).getJudul(), StatusPerizinan.PENDING),
-            new Perizinan("2", users.get(1), Date.valueOf("2022-10-23"), katalog.get(2).getJudul(), StatusPerizinan.DISETUJUI),
-            new Perizinan("3", users.get(2), Date.valueOf("2023-11-20"), katalog.get(3).getJudul(), StatusPerizinan.DITOLAK),
-            new Perizinan("4", users.get(7), Date.valueOf("2021-10-05"), katalog.get(0).getJudul(), StatusPerizinan.DISETUJUI),
-            new Perizinan("5", users.get(9), Date.valueOf("2021-11-12"), katalog.get(3).getJudul(), StatusPerizinan.PENDING),
-            new Perizinan("6", users.get(3), Date.valueOf("2022-01-03"), katalog.get(4).getJudul(), StatusPerizinan.DITOLAK),
-            new Perizinan("7", users.get(3), Date.valueOf("2022-02-18"), katalog.get(3).getJudul(), StatusPerizinan.DISETUJUI),
-            new Perizinan("8", users.get(0), Date.valueOf("2022-03-25"), katalog.get(6).getJudul(), StatusPerizinan.PENDING),
-            new Perizinan("9", users.get(1), Date.valueOf("2022-04-30"), katalog.get(3).getJudul(), StatusPerizinan.DITOLAK),
-            new Perizinan("10", users.get(4), Date.valueOf("2022-06-11"), katalog.get(9).getJudul(), StatusPerizinan.PENDING),
-            new Perizinan("11", users.get(2), Date.valueOf("2022-07-22"), katalog.get(10).getJudul(), StatusPerizinan.DISETUJUI),
-            new Perizinan("12", users.get(6), Date.valueOf("2022-08-29"), katalog.get(11).getJudul(), StatusPerizinan.PENDING)
+            new Perizinan("1", users.get(1), Date.valueOf("2021-07-31"), katalog.get(1), StatusPerizinan.PENDING),
+            new Perizinan("2", users.get(1), Date.valueOf("2022-10-23"), katalog.get(2), StatusPerizinan.DISETUJUI),
+            new Perizinan("3", users.get(2), Date.valueOf("2023-11-20"), katalog.get(3), StatusPerizinan.DITOLAK),
+            new Perizinan("4", users.get(7), Date.valueOf("2021-10-05"), katalog.get(0), StatusPerizinan.DISETUJUI),
+            new Perizinan("5", users.get(9), Date.valueOf("2021-11-12"), katalog.get(3), StatusPerizinan.PENDING),
+            new Perizinan("6", users.get(3), Date.valueOf("2022-01-03"), katalog.get(4), StatusPerizinan.DITOLAK),
+            new Perizinan("7", users.get(3), Date.valueOf("2022-02-18"), katalog.get(3), StatusPerizinan.DISETUJUI),
+            new Perizinan("8", users.get(0), Date.valueOf("2022-03-25"), katalog.get(6), StatusPerizinan.PENDING),
+            new Perizinan("9", users.get(1), Date.valueOf("2022-04-30"), katalog.get(3), StatusPerizinan.DITOLAK),
+            new Perizinan("10", users.get(4), Date.valueOf("2022-06-11"), katalog.get(9), StatusPerizinan.PENDING),
+            new Perizinan("11", users.get(2), Date.valueOf("2022-07-22"), katalog.get(10), StatusPerizinan.DISETUJUI),
+            new Perizinan("12", users.get(6), Date.valueOf("2022-08-29"), katalog.get(11), StatusPerizinan.PENDING)
     ));
 
     @GetMapping("/user")
