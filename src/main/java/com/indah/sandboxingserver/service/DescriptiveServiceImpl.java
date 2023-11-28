@@ -1,6 +1,5 @@
 package com.indah.sandboxingserver.service;
 
-import com.indah.sandboxingserver.config.ServerResponse;
 import com.indah.sandboxingserver.db.DBManager;
 import lombok.var;
 import org.apache.spark.sql.Dataset;

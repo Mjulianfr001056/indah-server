@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class ServerResponse {
     public static final String COMPLETED = "Spark processing completed";
 
-    private Object entity;
+    private final Object entity;
 
     @JsonCreator
     public ServerResponse(@JsonProperty("entity") Object entity) {
