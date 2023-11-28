@@ -21,5 +21,5 @@ public class KatalogData {
     private String kategori;
 
     @Column(nullable = false)
-    private String tahun;
+    private Integer tahun;
 }

@@ -7,6 +7,7 @@ import com.indah.sandboxingserver.model.User;
 import lombok.var;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.stat.inference.TestUtils;
+import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.mllib.linalg.Matrix;
 import org.apache.spark.mllib.stat.Statistics;
 import org.apache.spark.sql.Dataset;
@@ -18,10 +19,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @SpringBootTest
 class SandboxingServerApplicationTests {
@@ -153,4 +151,45 @@ class SandboxingServerApplicationTests {
         assert (user != null);
     }
 
+    @Test
+    @DisplayName("Test dashboard User")
+    void testDashboardUser(){
+        Map<String, Object> response = new HashMap<>();
+
+        Dataset<Row> perizinanTable = dbManager.getTable("perizinan");
+        Dataset<Row> usersTable =
+                dbManager.getTable("users", Arrays.asList("id", "nama"))
+                        .withColumnRenamed("id", "id_user");
+
+        Dataset<Row> dataTable =
+                dbManager.getTable("katalog_data", Arrays.asList("id", "judul"))
+                        .withColumnRenamed("id", "id_data");
+
+
+        perizinanTable = perizinanTable
+                .join(usersTable, perizinanTable.col("id_user").equalTo(usersTable.col("id_user")))
+                .join(dataTable, perizinanTable.col("id_data").equalTo(dataTable.col("id_data")))
+                .drop("id_user", "id_data");
+
+        perizinanTable.show();
+
+        List<Row> aggregate = perizinanTable.groupBy("status")
+                .count()
+                .collectAsList();
+
+        for (Row row : aggregate) {
+            String status = row.getString(0);
+            long count = row.getLong(1);
+
+            response.put(status, count);
+        }
+
+        Dataset<String> result =
+                perizinanTable.map((MapFunction<Row, String>) row -> row.prettyJson(), Encoders.STRING());
+
+        List<String> resultList = result.collectAsList();
+
+        response.put("raw", resultList);
+        System.out.println(response);
+    }
 }

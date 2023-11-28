@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.Builder;
 
 import java.util.Date;
+import java.util.Random;
 
 @Getter
 @Setter
@@ -26,13 +27,24 @@ public class Perizinan {
 
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
-    private Date date;
+    private Date tanggal;
 
     @ManyToOne
-    @JoinColumn(name="nama_data", referencedColumnName = "id", nullable = false)
-    private KatalogData namaData;
+    @JoinColumn(name="id_data", referencedColumnName = "id")
+    private KatalogData data;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private StatusPerizinan statusPerizinan;
+    private StatusPerizinan status;
+
+    @PrePersist
+    private void generateId() {
+        if (this.id == null || this.id.isEmpty()) {
+            String prefix = "REQ";
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            String random = String.valueOf(new Random().nextInt(10)); // Adjust the range as needed
+
+            this.id = prefix + timestamp + random;
+        }
+    }
 }

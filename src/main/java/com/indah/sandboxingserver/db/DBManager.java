@@ -38,15 +38,16 @@ public class DBManager {
     }
 
     public Dataset<Row> getTable(String tableName, List<String> columnNames) {
-        List<Column> selectedColumns = columnNames.stream()
-                .map(functions::col)
-                .collect(Collectors.toList());
 
         return sparkSession.read()
                 .format("jdbc")
                 .option("url", DB_URL)
                 .option("dbtable", tableName)
                 .load()
-                .select(selectedColumns.toArray(new Column[0]));
+                .select(columnNames.stream().map(functions::col).toArray(Column[]::new));
+    }
+
+    public Dataset<Row> getJoinedTable(Dataset<Row> dataset, String tableName, String joinColumn) {
+        return dataset.join(getTable(tableName), joinColumn);
     }
 }
