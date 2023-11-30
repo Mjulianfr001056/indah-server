@@ -4,6 +4,7 @@ package com.indah.sandboxingserver.controller;
 import com.indah.sandboxingserver.config.ServerResponse;
 import com.indah.sandboxingserver.db.DBManager;
 import com.indah.sandboxingserver.request.ColumnRequest;
+import com.indah.sandboxingserver.response.GetTableResponse;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +22,13 @@ public class MainController {
         return new ServerResponse(tabel.toJSON().collectAsList());
     }
 
-    @GetMapping("/{tableName}")
-    public ServerResponse getTable(@RequestParam("tableName") String tableName) {
-        var tabel = dbManager.getTable(tableName);
-        return new ServerResponse(tabel.toJSON().collectAsList());
+    @GetMapping("/{tableId}")
+    public ServerResponse getTable(@PathVariable String tableId) {
+        String inDBTableName = dbManager.getInDBTableNameFromId(tableId);
+        var tabel = dbManager.getTable(inDBTableName);
+        String[] tabelHeader = tabel.columns();
+        GetTableResponse response = new GetTableResponse(tabelHeader, tabel.toJSON().collectAsList());
+        return new ServerResponse(response);
     }
 
     @PostMapping()
