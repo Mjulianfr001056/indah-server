@@ -4,15 +4,14 @@ package com.indah.sandboxingserver.controller;
 import com.indah.sandboxingserver.config.ServerResponse;
 import com.indah.sandboxingserver.db.DBManager;
 import com.indah.sandboxingserver.request.ColumnRequest;
+import com.indah.sandboxingserver.request.RowRequest;
 import com.indah.sandboxingserver.response.GetTableResponse;
 import lombok.var;
+import org.apache.spark.sql.Row;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/data")
@@ -57,6 +56,28 @@ public class MainController {
         var response = dbManager.getTable(tableName, columnNames);
 
         return new ServerResponse(response.toJSON().collectAsList());
+    }
+
+    @PostMapping("/row")
+    public ServerResponse getTableByRow(@RequestBody RowRequest request) {
+        var tableId = request.getTableId();
+        var tableName = dbManager.getInDBTableNameFromId(tableId);
+        var rowNames = request.getRowNames();
+
+        var rowList = dbManager.getTable(tableName).collectAsList();
+        Map<String, String> desiredRows = new HashMap<>();
+
+        for (Row row : rowList) {
+            String rowName = row.getString(0);
+            if (rowNames.contains(rowName)) {
+                String rowString = row.toString();
+                int indexOfFirstComma = rowString.indexOf(',');
+                String modifiedRowString = "[" + rowString.substring(indexOfFirstComma + 1).trim();
+                desiredRows.put(rowName, modifiedRowString);
+            }
+        }
+
+        return new ServerResponse(desiredRows);
     }
 
     @PostMapping("/ket")
