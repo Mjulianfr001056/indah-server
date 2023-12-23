@@ -3,7 +3,9 @@ package com.indah.sandboxingserver;
 import com.indah.sandboxingserver.db.DBManager;
 import com.indah.sandboxingserver.mapper.DatasetMapper;
 import com.indah.sandboxingserver.model.Role;
+import com.indah.sandboxingserver.model.StatusPerizinan;
 import com.indah.sandboxingserver.model.User;
+import com.indah.sandboxingserver.repository.PerizinanRepository;
 import lombok.var;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.stat.inference.TestUtils;
@@ -29,6 +31,9 @@ class SandboxingServerApplicationTests {
 
     @Autowired
     private DBManager dbManager;
+
+    @Autowired
+    private PerizinanRepository perizinanRepository;
 
     @Test
     @DisplayName("Test koneksi ke SparkSession")
@@ -57,6 +62,8 @@ class SandboxingServerApplicationTests {
         dbTest = dbTest.select(dbTest.columns()[0], "c2021");
 
         Dataset<Row> dbSummary = dbTest.summary();
+        dbSummary.show();
+        dbSummary.collectAsList();
         System.out.println(dbSummary.toJSON().collectAsList());
     }
 
@@ -192,4 +199,147 @@ class SandboxingServerApplicationTests {
         response.put("raw", resultList);
         System.out.println(response);
     }
+
+    @Test
+    @DisplayName("Test patch")
+    void testPatch(){
+        var requestId = "102";
+        var newStatus = "PENDING";
+        var tableName = "perizinan";
+
+        perizinanRepository.findById(requestId)
+                .ifPresent(perizinan -> {
+                    perizinan.setStatus(StatusPerizinan.valueOf(newStatus));
+                    perizinanRepository.save(perizinan);
+                });
+    }
+
+    @Test
+    @DisplayName("Test get metadata")
+    public void getKeterangan() {
+        var tableId = "SAMPEL2";
+        var tableName = dbManager.getInDBTableNameFromId(tableId);
+
+        tableName = tableName + "_metadata";
+        var table = dbManager.getMetadataTable(tableName);
+
+        var header = table.columns();
+        var keterangan = table.select("keterangan");
+        keterangan.show();
+
+        Map<String, Object> response = new HashMap<>();
+
+        response.put("header", header);
+        response.put("keterangan", keterangan.toJSON().collectAsList());
+
+        System.out.println(response.get("keterangan"));
+    }
+
+    @Test
+    @DisplayName("Test One Way ANOVA dengan library ANOVA Test")
+    public void anovastat() {
+        // Your existing code
+        Dataset<Row> dbTest = dbManager.getTable("data_sampel2");
+        dbTest = dbTest.select("A", "B", "C");
+
+        double[] prodiA = DatasetMapper.mapToDoubleArray(dbTest, "A");
+        double[] prodiB = DatasetMapper.mapToDoubleArray(dbTest, "B");
+        double[] prodiC = DatasetMapper.mapToDoubleArray(dbTest, "C");
+
+        Collection<double[]> data = new ArrayList<>();
+        data.add(prodiA);
+        data.add(prodiB);
+        data.add(prodiC);
+
+        // Calculate additional statistics manually
+        int numGroups = data.size();
+        int numObservations = prodiA.length + prodiB.length + prodiC.length;
+
+        // Degrees of Freedom Between (dfB)
+        int dfBetween = numGroups - 1;
+
+        // Degrees of Freedom Within (dfW)
+        int dfWithin = numObservations - numGroups;
+
+        // Degrees of Freedom Total (dfTotal)
+        int dfTotal = numObservations - 1;
+
+        // Grand Mean
+        double grandMean = (sum(prodiA) + sum(prodiB) + sum(prodiC)) / numObservations;
+
+        // Sum of Squares Between (MSB)
+        double ssBetween = sumSquaredMeans(data, grandMean);
+
+        // Sum of Squares Within (SSW)
+        double ssWithin = sumSquaredDeviations(data);
+
+        double msBetween = ssBetween / dfBetween;
+        double msWithin = ssWithin / dfWithin;
+
+        // Sum of Squares Total (SST)
+        double ssTotal = ssBetween + ssWithin;
+
+        // F-Value
+        double fValue = msBetween / msWithin;
+
+        // Print or use the calculated statistics as needed
+        System.out.println("One-Way ANOVA Results:");
+        System.out.printf("F-Value: %.4f%n", fValue);
+        System.out.printf("Degrees of Freedom Between (dfB): %d%n", dfBetween);
+        System.out.printf("Degrees of Freedom Within (dfW): %d%n", dfWithin);
+        System.out.printf("Degrees of Freedom Total (dfTotal): %d%n", dfTotal);
+        System.out.printf("Sum of Squares Between (SSB): %.4f%n", ssBetween);
+        System.out.printf("Sum of Squares Within (SSW): %.4f%n", ssWithin);
+        System.out.printf("Sum of Squares Total (SST): %.4f%n", ssTotal);
+        System.out.printf("Mean Squares Between (MSB): %.4f%n", msBetween);
+        System.out.printf("Mean Squares Within (MSW): %.4f%n", msWithin);
+
+        // Rest of your code for hypothesis testing based on p-value
+    }
+
+    private static double sum(double[] array) {
+        double sum = 0.0;
+        for (double value : array) {
+            sum += value;
+        }
+        return sum;
+    }
+
+    private static double sumSquaredMeans(Collection<double[]> data, double grandMean) {
+        double sum = 0.0;
+        for (double[] group : data) {
+            double groupMean = sum(group) / group.length;
+            sum += group.length * Math.pow(groupMean - grandMean, 2);
+        }
+        return sum;
+    }
+
+    private static double sumSquaredDeviations(Collection<double[]> data) {
+        double sum = 0.0;
+        for (double[] group : data) {
+            double groupMean = sum(group) / group.length;
+            for (double value : group) {
+                sum += Math.pow(value - groupMean, 2);
+            }
+        }
+        return sum;
+    }
+
+    @Test
+    @DisplayName("Test mengambil baris")
+    void testGetRow() {
+        // Assuming dbManager is an instance of SparkSession or SparkContext
+        Dataset<Row> dbTest = dbManager.getTable("data_sampel1");
+
+        dbTest.show();
+
+        // Collect all rows as a list
+        List<Row> rows = dbTest.collectAsList();
+
+        // Iterate through the list and print each row
+        for (Row row : rows) {
+            System.out.println(row);
+        }
+    }
+
 }

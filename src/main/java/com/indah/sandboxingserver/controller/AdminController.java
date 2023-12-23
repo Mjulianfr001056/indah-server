@@ -2,14 +2,15 @@ package com.indah.sandboxingserver.controller;
 
 import com.indah.sandboxingserver.config.ServerResponse;
 import com.indah.sandboxingserver.db.DBManager;
+import com.indah.sandboxingserver.model.StatusPerizinan;
+import com.indah.sandboxingserver.repository.PerizinanRepository;
+import com.indah.sandboxingserver.request.PatchIzinRequest;
 import lombok.var;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+import org.apache.spark.sql.functions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,6 +23,9 @@ import java.util.Map;
 public class AdminController {
     @Autowired
     private DBManager dbManager;
+
+    @Autowired
+    private PerizinanRepository perizinanRepository;
 
     @GetMapping("/dashboard")
     public ServerResponse getColumn() {
@@ -72,5 +76,19 @@ public class AdminController {
     public ServerResponse getUsers() {
         var users = dbManager.getTable("users");
         return new ServerResponse(users.toJSON().collectAsList());
+    }
+
+    @PatchMapping("/izin")
+    public ServerResponse izin(@RequestBody PatchIzinRequest request) {
+        var requestId = request.getRequestId();
+        var newStatus = request.getNewStatus();
+
+        perizinanRepository.findById(requestId)
+                .ifPresent(perizinan -> {
+                    perizinan.setStatus(StatusPerizinan.valueOf(newStatus));
+                    perizinanRepository.save(perizinan);
+                });
+
+        return new ServerResponse("success");
     }
 }

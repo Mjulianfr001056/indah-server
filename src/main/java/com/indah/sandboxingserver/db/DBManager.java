@@ -18,6 +18,9 @@ public class DBManager {
     @Value("${indah.data.source.url}")
     private String DB_URL;
 
+    @Value("${indah.metadata.source.url}")
+    private String META_URL;
+
     private DBManager() {
 
     }
@@ -65,5 +68,22 @@ public class DBManager {
         }
 
         return null;
+    }
+
+    public void saveTable(Dataset<Row> dataset, String tableName) {
+        dataset.write()
+                .format("jdbc")
+                .mode("overwrite")
+                .option("url", DB_URL)
+                .option("dbtable", tableName)
+                .save();
+    }
+
+    public Dataset<Row> getMetadataTable(String tableName) {
+        return sparkSession.read()
+                .format("jdbc")
+                .option("url", META_URL)
+                .option("dbtable", tableName)
+                .load();
     }
 }

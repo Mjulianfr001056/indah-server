@@ -9,6 +9,11 @@ import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/v1/data")
 @CrossOrigin(origins = "*")
@@ -31,13 +36,38 @@ public class MainController {
         return new ServerResponse(response);
     }
 
+
+    @PostMapping("/katalog")
+    public ServerResponse getKatalog() {
+        var tableName = "katalog_data";
+        var columnNames = Arrays.asList("id", "judul");
+
+        var response = dbManager.getTable(tableName, columnNames);
+
+        return new ServerResponse(response.toJSON().collectAsList());
+    }
+
     @PostMapping()
     public ServerResponse getTable(@RequestBody ColumnRequest request) {
-        var tableName = request.getTableName();
+        var tableId = request.getTableId();
+
+        var tableName = dbManager.getInDBTableNameFromId(tableId);
         var columnNames = request.getColumnNames();
 
         var response = dbManager.getTable(tableName, columnNames);
 
         return new ServerResponse(response.toJSON().collectAsList());
+    }
+
+    @PostMapping("/ket")
+    public ServerResponse getKeterangan(@RequestBody Map<String, String> request) {
+        var tableId = request.get("tableId");
+        var tableName = dbManager.getInDBTableNameFromId(tableId);
+        tableName= tableName + "_metadata";
+        var table = dbManager.getMetadataTable(tableName);
+        table.drop("id");
+
+
+        return new ServerResponse(table.toJSON().collectAsList());
     }
 }
