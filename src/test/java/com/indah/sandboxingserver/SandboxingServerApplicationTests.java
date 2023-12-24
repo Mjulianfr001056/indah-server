@@ -8,9 +8,13 @@ import com.indah.sandboxingserver.model.User;
 import com.indah.sandboxingserver.repository.PerizinanRepository;
 import lombok.var;
 import org.apache.commons.math3.distribution.NormalDistribution;
+import org.apache.commons.math3.distribution.RealDistribution;
+import org.apache.commons.math3.distribution.TDistribution;
+import org.apache.commons.math3.stat.descriptive.StatisticalSummary;
 import org.apache.commons.math3.stat.inference.TestUtils;
 import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.mllib.linalg.Matrix;
+import org.apache.spark.mllib.stat.MultivariateStatisticalSummary;
 import org.apache.spark.mllib.stat.Statistics;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Encoders;
@@ -139,16 +143,45 @@ class SandboxingServerApplicationTests {
     @DisplayName("Test uji T 2 sampel berpasangan")
     void testPairedTTest(){
         Dataset<Row> dbTest = dbManager.getTable("data_sampel3");
-        dbTest = dbTest.select("BB Sebelum", "BB Sesudah");
+        dbTest = dbTest.select("bbsebelum", "bbsesudah");
 
-        double[] bbSebelum = DatasetMapper.mapToDoubleArray(dbTest, "BB Sebelum");
-        double[] bbSesudah = DatasetMapper.mapToDoubleArray(dbTest, "BB Sesudah");
+        double[] bbSebelum = DatasetMapper.mapToDoubleArray(dbTest, "bbsebelum");
+        double[] bbSesudah = DatasetMapper.mapToDoubleArray(dbTest, "bbsesudah");
 
         double tStat = TestUtils.pairedT(bbSebelum, bbSesudah);
         double pValue = TestUtils.pairedTTest(bbSebelum, bbSesudah);
 
         System.out.println("T Statistics: " + tStat);
         System.out.println("P-Value: " + pValue);
+    }
+
+    @Test
+    @DisplayName("Test uji T 1 sampel")
+    void testTTest(){
+        Dataset<Row> dbTest = dbManager.getTable("data_sampel4");
+        dbTest = dbTest.select("ip1");
+
+        double[] ip1 = DatasetMapper.mapToDoubleArray(dbTest, "ip1");
+        int degreeOfFreedom = ip1.length - 1;
+
+        TDistribution tDistribution = new TDistribution(degreeOfFreedom);
+
+
+        double tStat = TestUtils.t(3.35, ip1);
+        // Two-sided p-value
+        double twoSidedPValue = 2 * tDistribution.cumulativeProbability(-Math.abs(tStat));
+
+        // One-sided p-value for greater alternative
+        double greaterPValue = tDistribution.cumulativeProbability(-tStat);
+
+        // One-sided p-value for less alternative
+        double lessPValue = tDistribution.cumulativeProbability(tStat);
+
+        System.out.println("Two-Sided P-Value: " + twoSidedPValue);
+        System.out.println("One-Sided P-Value (Greater): " + greaterPValue);
+        System.out.println("One-Sided P-Value (Less): " + lessPValue);
+
+        System.out.println("T Statistics: " + tStat);
     }
 
     @Test
