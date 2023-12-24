@@ -93,4 +93,40 @@ public class InferenceServiceImpl implements InferenceService {
                 .build();
     }
 
+    @Override
+    public TTestStat pairedTTest(String tableId, String columnName1, String columnName2) {
+        var tableName = dbManager.getInDBTableNameFromId(tableId);
+        var table = dbManager.getTable(tableName, Arrays.asList(columnName1, columnName2));
+
+        double[] columnData1 = mapToDoubleArray(table, columnName1);
+        double[] columnData2 = mapToDoubleArray(table, columnName2);
+
+        double tStat = TestUtils.pairedT(columnData1, columnData2);
+        double pValue = TestUtils.pairedTTest(columnData1, columnData2);
+        int df = columnData1.length - 1;
+
+        SummaryStatistics summaryStatistics = new SummaryStatistics();
+        TDistribution tDistribution = new TDistribution(df);
+
+        for(int i = 0; i < columnData1.length; i++) {
+            summaryStatistics.addValue(columnData1[i] - columnData2[i]);
+        }
+
+        double mean = summaryStatistics.getMean();
+        double sd = summaryStatistics.getStandardDeviation();
+
+        double marginOfError = tDistribution.inverseCumulativeProbability(0.975) * (sd / Math.sqrt(columnData1.length));
+        double ci95Low = mean - marginOfError;
+        double ci95High = mean + marginOfError;
+
+        return TTestStat.builder()
+                .t(tStat)
+                .p(pValue)
+                .sd(sd)
+                .df(df)
+                .mean(mean)
+                .ci95Low(ci95Low)
+                .ci95High(ci95High)
+                .build();
+    }
 }

@@ -10,4 +10,6 @@ public interface InferenceService {
     ANOVAUtil.ANOVAStat getANOVA(String tableId, List<String> columnName);
 
     TTestStat tTest(TTestRequest request);
+
+    TTestStat pairedTTest(String tableId, String columnName1, String columnName2);
 }

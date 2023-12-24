@@ -1,3 +1,51 @@
+POST http://localhost:8080/api/v1/inference/paired-ttest
+Content-Type: application/json
+Content-Length: 71
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL3",
+  "columnNames": ["bbsebelum", "bbsesudah"]
+}
+
+<> 2023-12-24T230554.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/paired-ttest
+Content-Type: application/json
+Content-Length: 71
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL3",
+  "columnNames": ["bbsebelum", "bbsesudah"]
+}
+
+<> 2023-12-24T230320.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/paired-ttest
+Content-Type: application/json
+Content-Length: 71
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL3",
+  "columnNames": ["bbsebelum", "bbsesudah"]
+}
+
+<> 2023-12-24T225647.200.json
+
+###
+
 POST http://localhost:8080/api/v1/inference/ttest
 Content-Type: application/json
 Content-Length: 89
@@ -734,53 +782,6 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 }
 
 <> 2023-12-02T160042.500.json
-
-###
-
-POST http://localhost:8080/api/v1/data/ket
-Content-Type: application/json
-Content-Length: 28
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-    "tableId": "SAMPEL2"
-}
-
-<> 2023-12-02T155653.500.json
-
-###
-
-PATCH http://localhost:8080/api/v1/admin/izin
-Content-Type: application/json
-Content-Length: 56
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-    "requestId": "102",
-    "newStatus": "DISETUJUI"
-}
-
-<> 2023-12-02T125145.200.json
-
-###
-
-PATCH http://localhost:8080/api/v1/admin/izin
-Content-Type: application/json
-Content-Length: 61
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-    "requestId": "Izin/102",
-    "newStatus": "DISETUJUI"
-}
-
-<> 2023-12-02T124613.500.json
 
 ###
 
