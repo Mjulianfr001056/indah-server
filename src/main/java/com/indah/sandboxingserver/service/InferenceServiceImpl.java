@@ -3,11 +3,18 @@ package com.indah.sandboxingserver.service;
 import com.indah.sandboxingserver.db.DBManager;
 import com.indah.sandboxingserver.entity.ANOVAUtil;
 import com.indah.sandboxingserver.entity.TTestStat;
+import com.indah.sandboxingserver.mapper.DatasetMapper;
 import com.indah.sandboxingserver.request.TTestRequest;
+import com.indah.sandboxingserver.response.WilcoxonTestResponse;
 import lombok.var;
 import org.apache.commons.math3.distribution.TDistribution;
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.apache.commons.math3.stat.inference.TestUtils;
+import org.apache.commons.math3.stat.inference.WilcoxonSignedRankTest;
+import org.apache.commons.math3.stat.ranking.NaNStrategy;
+import org.apache.commons.math3.stat.ranking.NaturalRanking;
+import org.apache.commons.math3.stat.ranking.TiesStrategy;
+import org.apache.commons.math3.util.FastMath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -127,6 +134,46 @@ public class InferenceServiceImpl implements InferenceService {
                 .mean(mean)
                 .ci95Low(ci95Low)
                 .ci95High(ci95High)
+                .build();
+    }
+
+    @Override
+    public WilcoxonTestResponse wilcoxonTest(String tableId, String columnName1, String columnName2) {
+        var tableName = dbManager.getInDBTableNameFromId(tableId);
+        var table = dbManager.getTable(tableName, Arrays.asList(columnName1, columnName2));
+
+        double[] before = DatasetMapper.mapToDoubleArray(table, columnName1);
+        double[] after = DatasetMapper.mapToDoubleArray(table, columnName2);
+        double[] diff = new double[before.length];
+        double[] zAbs = new double[before.length];
+
+        for(int i = 0; i < before.length; ++i) {
+            diff[i] = after[i] - before[i];
+            zAbs[i] = FastMath.abs(diff[i]);
+        }
+
+        NaturalRanking naturalRanking = new NaturalRanking(NaNStrategy.FIXED, TiesStrategy.AVERAGE);
+        double[] ranks = naturalRanking.rank(zAbs);
+
+        double Wplus = 0.0;
+
+        int i;
+        for(i = 0; i < diff.length; ++i) {
+            if (diff[i] > 0.0) {
+                Wplus += ranks[i];
+            }
+        }
+
+        i = before.length;
+        double Wminus = (double)(i * (i + 1)) / 2.0 - Wplus;
+        double Wstat = FastMath.min(Wplus, Wminus);
+
+        WilcoxonSignedRankTest wilcoxonSignedRankTest = new WilcoxonSignedRankTest();
+        double pValue = wilcoxonSignedRankTest.wilcoxonSignedRankTest(before, after, false);
+
+        return WilcoxonTestResponse.builder()
+                .V(Wstat)
+                .pValue(pValue)
                 .build();
     }
 }

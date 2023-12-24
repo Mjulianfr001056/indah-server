@@ -43,4 +43,13 @@ public class InferenceController {
 
         return new ServerResponse(response);
     }
+
+    @PostMapping("/wilcoxon")
+    ServerResponse getWilcoxon(@RequestBody ColumnRequest request) {
+        var tableId = request.getTableId();
+        var columnNames = request.getColumnNames();
+        var response = inferenceService.wilcoxonTest(tableId, columnNames.get(0), columnNames.get(1));
+
+        return new ServerResponse(response);
+    }
 }

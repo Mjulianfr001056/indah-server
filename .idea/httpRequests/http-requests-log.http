@@ -1,3 +1,19 @@
+POST http://localhost:8080/api/v1/inference/wilcoxon
+Content-Type: application/json
+Content-Length: 57
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL6",
+  "columnNames": ["Xa", "Xb"]
+}
+
+<> 2023-12-25T010415.200.json
+
+###
+
 POST http://localhost:8080/api/v1/inference/paired-ttest
 Content-Type: application/json
 Content-Length: 71
@@ -767,21 +783,6 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 }
 
 <> 2023-12-02T160207.200.json
-
-###
-
-POST http://localhost:8080/api/v1/data/ket
-Content-Type: application/json
-Content-Length: 28
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-    "tableId": "SAMPEL2"
-}
-
-<> 2023-12-02T160042.500.json
 
 ###
 

@@ -12,6 +12,11 @@ import org.apache.commons.math3.distribution.RealDistribution;
 import org.apache.commons.math3.distribution.TDistribution;
 import org.apache.commons.math3.stat.descriptive.StatisticalSummary;
 import org.apache.commons.math3.stat.inference.TestUtils;
+import org.apache.commons.math3.stat.inference.WilcoxonSignedRankTest;
+import org.apache.commons.math3.stat.ranking.NaNStrategy;
+import org.apache.commons.math3.stat.ranking.NaturalRanking;
+import org.apache.commons.math3.stat.ranking.TiesStrategy;
+import org.apache.commons.math3.util.FastMath;
 import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.mllib.linalg.Matrix;
 import org.apache.spark.mllib.stat.MultivariateStatisticalSummary;
@@ -373,6 +378,45 @@ class SandboxingServerApplicationTests {
         for (Row row : rows) {
             System.out.println(row);
         }
+    }
+
+    @Test
+    @DisplayName("Test Wilcoxon Signed Rank Test")
+    void testWilcoxon() {
+        Dataset<Row> dbTest = dbManager.getTable("data_sampel6");
+        dbTest = dbTest.select("Xa", "Xb");
+
+        double[] before = DatasetMapper.mapToDoubleArray(dbTest, "Xa");
+        double[] after = DatasetMapper.mapToDoubleArray(dbTest, "Xb");
+        double[] diff = new double[before.length];
+        double[] zAbs = new double[before.length];
+
+        for(int i = 0; i < before.length; ++i) {
+            diff[i] = after[i] - before[i];
+            zAbs[i] = FastMath.abs(diff[i]);
+        }
+
+        NaturalRanking naturalRanking = new NaturalRanking(NaNStrategy.FIXED, TiesStrategy.AVERAGE);
+        double[] ranks = naturalRanking.rank(zAbs);
+
+        double Wplus = 0.0;
+
+        int i;
+        for(i = 0; i < diff.length; ++i) {
+            if (diff[i] > 0.0) {
+                Wplus += ranks[i];
+            }
+        }
+
+        i = before.length;
+        double Wminus = (double)(i * (i + 1)) / 2.0 - Wplus;
+        double Wstat = FastMath.min(Wplus, Wminus);
+
+        WilcoxonSignedRankTest wilcoxonSignedRankTest = new WilcoxonSignedRankTest();
+        double pValue = wilcoxonSignedRankTest.wilcoxonSignedRankTest(before, after, false);
+
+        System.out.println("W Statistics: " + Wstat);
+        System.out.println("Asymp. Sig.: " + pValue);
     }
 
 }
