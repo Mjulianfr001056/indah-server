@@ -1,3 +1,51 @@
+POST http://localhost:8080/api/v1/inference/mann-whitney
+Content-Type: application/json
+Content-Length: 63
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL7",
+  "columnNames": ["skorY", "skorT"]
+}
+
+<> 2023-12-25T013737.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/mann-whitney
+Content-Type: application/json
+Content-Length: 63
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL7",
+  "columnNames": ["skorY", "skorT"]
+}
+
+<> 2023-12-25T013643.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/mannwhitney
+Content-Type: application/json
+Content-Length: 63
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL7",
+  "columnNames": ["skorY", "skorT"]
+}
+
+<> 2023-12-25T013631.404.json
+
+###
+
 POST http://localhost:8080/api/v1/inference/wilcoxon
 Content-Type: application/json
 Content-Length: 57
@@ -737,52 +785,6 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 }
 
 <> 2023-12-02T160749.200.json
-
-###
-
-PATCH http://localhost:8080/api/v1/admin/izin
-Content-Type: application/json
-Content-Length: 56
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-    "requestId": "102",
-    "newStatus": "DISETUJUI"
-}
-
-<> 2023-12-02T160744.200.json
-
-###
-
-POST http://localhost:8080/api/v1/data/ket
-Content-Type: application/json
-Content-Length: 28
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-    "tableId": "SAMPEL2"
-}
-
-<> 2023-12-02T160346.200.json
-
-###
-
-POST http://localhost:8080/api/v1/data/ket
-Content-Type: application/json
-Content-Length: 28
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-    "tableId": "SAMPEL2"
-}
-
-<> 2023-12-02T160207.200.json
 
 ###
 

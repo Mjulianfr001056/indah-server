@@ -5,16 +5,20 @@ import com.indah.sandboxingserver.entity.ANOVAUtil;
 import com.indah.sandboxingserver.entity.TTestStat;
 import com.indah.sandboxingserver.mapper.DatasetMapper;
 import com.indah.sandboxingserver.request.TTestRequest;
+import com.indah.sandboxingserver.response.MannWhitneyTestResponse;
 import com.indah.sandboxingserver.response.WilcoxonTestResponse;
 import lombok.var;
 import org.apache.commons.math3.distribution.TDistribution;
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
+import org.apache.commons.math3.stat.inference.MannWhitneyUTest;
 import org.apache.commons.math3.stat.inference.TestUtils;
 import org.apache.commons.math3.stat.inference.WilcoxonSignedRankTest;
 import org.apache.commons.math3.stat.ranking.NaNStrategy;
 import org.apache.commons.math3.stat.ranking.NaturalRanking;
 import org.apache.commons.math3.stat.ranking.TiesStrategy;
 import org.apache.commons.math3.util.FastMath;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -173,6 +177,41 @@ public class InferenceServiceImpl implements InferenceService {
 
         return WilcoxonTestResponse.builder()
                 .V(Wstat)
+                .pValue(pValue)
+                .build();
+    }
+
+    @Override
+    public MannWhitneyTestResponse mannWhitneyTest(String tableId, String columnName1, String columnName2) {
+        var tableName = dbManager.getInDBTableNameFromId(tableId);
+        var table = dbManager.getTable(tableName, Arrays.asList(columnName1, columnName2));
+
+        double[] col1 = DatasetMapper.mapToDoubleArray(table, columnName1);
+        double[] col2 = DatasetMapper.mapToDoubleArray(table, columnName2);
+
+        double[] z = new double[col1.length + col2.length];
+        System.arraycopy(col1, 0, z, 0, col1.length);
+        System.arraycopy(col2, 0, z, col1.length, col2.length);
+
+        NaturalRanking naturalRanking = new NaturalRanking(NaNStrategy.FIXED, TiesStrategy.AVERAGE);
+        double[] ranks = naturalRanking.rank(z);
+
+        double sumRankX = 0.0;
+
+        for(int i = 0; i < col1.length; ++i) {
+            sumRankX += ranks[i];
+        }
+
+        double U1 = sumRankX - (double)((long)col1.length * (long)(col1.length + 1) / 2L);
+        double U2 = (double)((long)col1.length * (long) col2.length) - U1;
+
+        double Wstat = FastMath.min(U1, U2);
+
+        MannWhitneyUTest mannWhitneyUTest = new MannWhitneyUTest();
+        double pValue = mannWhitneyUTest.mannWhitneyUTest(col1, col2);
+
+        return MannWhitneyTestResponse.builder()
+                .W(Wstat)
                 .pValue(pValue)
                 .build();
     }

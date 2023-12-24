@@ -11,6 +11,7 @@ import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.distribution.RealDistribution;
 import org.apache.commons.math3.distribution.TDistribution;
 import org.apache.commons.math3.stat.descriptive.StatisticalSummary;
+import org.apache.commons.math3.stat.inference.MannWhitneyUTest;
 import org.apache.commons.math3.stat.inference.TestUtils;
 import org.apache.commons.math3.stat.inference.WilcoxonSignedRankTest;
 import org.apache.commons.math3.stat.ranking.NaNStrategy;
@@ -415,6 +416,39 @@ class SandboxingServerApplicationTests {
         WilcoxonSignedRankTest wilcoxonSignedRankTest = new WilcoxonSignedRankTest();
         double pValue = wilcoxonSignedRankTest.wilcoxonSignedRankTest(before, after, false);
 
+        System.out.println("W Statistics: " + Wstat);
+        System.out.println("Asymp. Sig.: " + pValue);
+    }
+
+    @Test
+    @DisplayName("Test Mann Whitney U Test")
+    void testMannWhitney() {
+        Dataset<Row> dbTest = dbManager.getTable("data_sampel7");
+        dbTest = dbTest.select("skorY", "skorT");
+
+        double[] col1 = DatasetMapper.mapToDoubleArray(dbTest, "skorY");
+        double[] col2 = DatasetMapper.mapToDoubleArray(dbTest, "skorT");
+
+        double[] z = new double[col1.length + col2.length];
+        System.arraycopy(col1, 0, z, 0, col1.length);
+        System.arraycopy(col2, 0, z, col1.length, col2.length);
+
+        NaturalRanking naturalRanking = new NaturalRanking(NaNStrategy.FIXED, TiesStrategy.AVERAGE);
+        double[] ranks = naturalRanking.rank(z);
+
+        double sumRankX = 0.0;
+
+        for(int i = 0; i < col1.length; ++i) {
+            sumRankX += ranks[i];
+        }
+
+        double U1 = sumRankX - (double)((long)col1.length * (long)(col1.length + 1) / 2L);
+        double U2 = (double)((long)col1.length * (long) col2.length) - U1;
+
+        double Wstat = FastMath.min(U1, U2);
+
+        MannWhitneyUTest mannWhitneyUTest = new MannWhitneyUTest();
+        double pValue = mannWhitneyUTest.mannWhitneyUTest(col1, col2);
         System.out.println("W Statistics: " + Wstat);
         System.out.println("Asymp. Sig.: " + pValue);
     }

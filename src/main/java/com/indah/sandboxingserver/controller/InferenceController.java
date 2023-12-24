@@ -52,4 +52,13 @@ public class InferenceController {
 
         return new ServerResponse(response);
     }
+
+    @PostMapping("/mann-whitney")
+    ServerResponse getMannWhitney(@RequestBody ColumnRequest request) {
+        var tableId = request.getTableId();
+        var columnNames = request.getColumnNames();
+        var response = inferenceService.mannWhitneyTest(tableId, columnNames.get(0), columnNames.get(1));
+
+        return new ServerResponse(response);
+    }
 }
