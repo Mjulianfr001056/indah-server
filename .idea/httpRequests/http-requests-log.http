@@ -1,0 +1,773 @@
+POST http://localhost:8080/api/v1/data/katalog
+Content-Type: application/json
+Content-Length: 49
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "userId": "102",
+    "tableId": "SAMPEL1"
+}
+
+<> 2023-12-25T065450.200.json
+
+###
+
+POST http://localhost:8080/api/v1/data/katalog
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-12-25T065414.400.json
+
+###
+
+GET http://localhost:8080/api/v1/data/katalog
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-12-25T065355.500.json
+
+###
+
+POST http://localhost:8080/api/v1/data/request
+Content-Type: application/json
+Content-Length: 45
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL1",
+  "userId": "102"
+}
+
+<> 2023-12-25T064503.200.json
+
+###
+
+POST http://localhost:8080/api/v1/data/katalog
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-12-25T050039.200.json
+
+###
+
+GET http://localhost:8080/api/v1/data/katalog
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-12-25T050021.500.json
+
+###
+
+GET http://localhost:8080/api/v1/data
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-12-25T050002.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/mann-whitney
+Content-Type: application/json
+Content-Length: 63
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL7",
+  "columnNames": ["skorY", "skorT"]
+}
+
+<> 2023-12-25T040517.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/wilcoxon
+Content-Type: application/json
+Content-Length: 57
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL6",
+  "columnNames": ["Xa", "Xb"]
+}
+
+<> 2023-12-25T035122.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/ttest
+Content-Type: application/json
+Content-Length: 89
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL4",
+  "columnNames": "ip1",
+  "alternative": "LESS",
+  "mu": 3.35
+}
+
+<> 2023-12-25T030359.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/paired-ttest
+Content-Type: application/json
+Content-Length: 71
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL3",
+  "columnNames": ["bbsebelum", "bbsesudah"]
+}
+
+<> 2023-12-25T021736.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/mann-whitney
+Content-Type: application/json
+Content-Length: 63
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL7",
+  "columnNames": ["skorY", "skorT"]
+}
+
+<> 2023-12-25T013737.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/mann-whitney
+Content-Type: application/json
+Content-Length: 63
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL7",
+  "columnNames": ["skorY", "skorT"]
+}
+
+<> 2023-12-25T013643.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/mannwhitney
+Content-Type: application/json
+Content-Length: 63
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL7",
+  "columnNames": ["skorY", "skorT"]
+}
+
+<> 2023-12-25T013631.404.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/wilcoxon
+Content-Type: application/json
+Content-Length: 57
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL6",
+  "columnNames": ["Xa", "Xb"]
+}
+
+<> 2023-12-25T010415.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/paired-ttest
+Content-Type: application/json
+Content-Length: 71
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL3",
+  "columnNames": ["bbsebelum", "bbsesudah"]
+}
+
+<> 2023-12-24T230554.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/paired-ttest
+Content-Type: application/json
+Content-Length: 71
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL3",
+  "columnNames": ["bbsebelum", "bbsesudah"]
+}
+
+<> 2023-12-24T230320.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/paired-ttest
+Content-Type: application/json
+Content-Length: 71
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL3",
+  "columnNames": ["bbsebelum", "bbsesudah"]
+}
+
+<> 2023-12-24T225647.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/ttest
+Content-Type: application/json
+Content-Length: 89
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL4",
+  "columnNames": "ip1",
+  "alternative": "LESS",
+  "mu": 3.35
+}
+
+<> 2023-12-24T143847.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/ttest
+Content-Type: application/json
+Content-Length: 92
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL4",
+  "columnNames": "ip1",
+  "alternative": "GREATER",
+  "mu": 3.35
+}
+
+<> 2023-12-24T143831.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/ttest
+Content-Type: application/json
+Content-Length: 92
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL4",
+  "columnNames": "ip1",
+  "alternative": "GREATER",
+  "mu": 3.35
+}
+
+<> 2023-12-24T143722.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/ttest
+Content-Type: application/json
+Content-Length: 92
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL4",
+  "columnNames": "ip1",
+  "alternative": "GREATER",
+  "mu": 3.35
+}
+
+<> 2023-12-24T143356.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/ttest
+Content-Type: application/json
+Content-Length: 94
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL4",
+  "columnNames": "ip1",
+  "alternative": "TWO_SIDED",
+  "mu": 3.35
+}
+
+<> 2023-12-24T143056.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/ttest
+Content-Type: application/json
+Content-Length: 94
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL4",
+  "columnNames": "ip1",
+  "alternative": "TWO_SIDED",
+  "mu": 3.35
+}
+
+<> 2023-12-24T142951.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/ttest
+Content-Type: application/json
+Content-Length: 92
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL4",
+  "columnNames": "ip1",
+  "alternative": "GREATER",
+  "mu": 3.35
+}
+
+<> 2023-12-24T142936.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/ttest
+Content-Type: application/json
+Content-Length: 89
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL4",
+  "columnNames": "ip1",
+  "alternative": "LESS",
+  "mu": 3.35
+}
+
+<> 2023-12-24T142912.200.json
+
+###
+
+POST http://localhost:8080/api/v1/data/row
+Content-Type: application/json
+Content-Length: 89
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL4",
+  "columnNames": "ip1",
+  "alternative": "LESS",
+  "mu": 3.35
+}
+
+<> 2023-12-24T142849.500.json
+
+###
+
+POST http://localhost:8080/api/v1/data/row
+Content-Type: application/json
+Content-Length: 57
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableId": "SAMPEL1",
+    "rowNames": ["Soppeng"]
+}
+
+<> 2023-12-24T033638.200.json
+
+###
+
+POST http://localhost:8080/api/v1/data
+Content-Type: application/json
+Content-Length: 71
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableId": "VISUAL1",
+    "columnNames": ["jb", "2000", "2001"]
+}
+
+<> 2023-12-24T033634.200.json
+
+###
+
+POST http://localhost:8080/api/v1/data/row
+Content-Type: application/json
+Content-Length: 57
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableId": "SAMPEL1",
+    "rowNames": ["Soppeng"]
+}
+
+<> 2023-12-24T033552.200.json
+
+###
+
+POST http://localhost:8080/api/v1/data/row
+Content-Type: application/json
+Content-Length: 57
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableId": "SAMPEL1",
+    "rowNames": ["Soppeng"]
+}
+
+<> 2023-12-24T033405.200.json
+
+###
+
+POST http://localhost:8080/api/v1/data
+Content-Type: application/json
+Content-Length: 71
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableId": "VISUAL1",
+    "columnNames": ["jb", "2000", "2001"]
+}
+
+<> 2023-12-24T033215.200.json
+
+###
+
+POST http://localhost:8080/api/v1/data/row
+Content-Type: application/json
+Content-Length: 57
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableId": "SAMPEL1",
+    "rowNames": ["Soppeng"]
+}
+
+<> 2023-12-24T033143.200.json
+
+###
+
+POST http://localhost:8080/api/v1/data/row
+Content-Type: application/json
+Content-Length: 57
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableId": "SAMPEL1",
+    "rowNames": ["Soppeng"]
+}
+
+<> 2023-12-24T033048.200.json
+
+###
+
+POST http://localhost:8080/api/v1/data/row
+Content-Type: application/json
+Content-Length: 57
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableId": "SAMPEL1",
+    "rowNames": ["Soppeng"]
+}
+
+<> 2023-12-24T032712.200.json
+
+###
+
+POST http://localhost:8080/api/v1/data/row
+Content-Type: application/json
+Content-Length: 57
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableId": "SAMPEL1",
+    "rowNames": ["Soppeng"]
+}
+
+<> 2023-12-24T032511.200.json
+
+###
+
+POST http://localhost:8080/api/v1/data/row
+Content-Type: application/json
+Content-Length: 57
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableId": "SAMPEL1",
+    "rowNames": ["Soppeng"]
+}
+
+<> 2023-12-24T032158.200.json
+
+###
+
+POST http://localhost:8080/api/v1/data
+Content-Type: application/json
+Content-Length: 71
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableId": "VISUAL1",
+    "columnNames": ["jb", "2000", "2001"]
+}
+
+<> 2023-12-23T235453.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/anova
+Content-Type: application/json
+Content-Length: 64
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableId": "SAMPEL2",
+    "columnNames": ["A", "B", "C"]
+}
+
+<> 2023-12-23T224715.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/anova
+Content-Type: application/json
+Content-Length: 64
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableId": "SAMPEL2",
+    "columnNames": ["A", "B", "C"]
+}
+
+<> 2023-12-23T224532.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/anova
+Content-Type: application/json
+Content-Length: 59
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableId": "SAMPEL2",
+    "columnNames": ["A", "B"]
+}
+
+<> 2023-12-23T224403.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/anova
+Content-Type: application/json
+Content-Length: 59
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableId": "SAMPEL2",
+    "columnNames": ["A", "B"]
+}
+
+<> 2023-12-23T224134.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/anova
+Content-Type: application/json
+Content-Length: 59
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableId": "SAMPEL2",
+    "columnNames": ["A", "B"]
+}
+
+<> 2023-12-23T223834.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/anova
+Content-Type: application/json
+Content-Length: 59
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableId": "SAMPEL2",
+    "columnNames": ["A", "B"]
+}
+
+<> 2023-12-23T223408.500.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/anova
+Content-Type: application/json
+Content-Length: 59
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableId": "SAMPEL2",
+    "columnNames": ["A", "B"]
+}
+
+<> 2023-12-23T223246.500.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/anova
+Content-Type: application/json
+Content-Length: 66
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableName": "data_sampel2",
+    "columnNames": ["A", "B"]
+}
+
+<> 2023-12-23T222954.500.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/anova
+Content-Type: application/json
+Content-Length: 74
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableName": "data_sampel2",
+    "columnNames": ["c2021", "c2020"]
+}
+
+<> 2023-12-23T222651.500.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/anova
+Content-Type: application/json
+Content-Length: 74
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "tableName": "data_sampel2",
+    "columnNames": ["c2021", "c2020"]
+}
+
+<> 2023-12-23T222319.500.json
+
+###
+
+GET https://ac1d-36-69-218-93.ngrok-free.app/api/v1/data
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-12-14T114939.200.json
+
+###
+
+GET http://localhost:8080/api/v1/data/katalog
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-12-08T231618.200.json
+
+###
+

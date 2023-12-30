@@ -1,5 +1,6 @@
 package com.indah.sandboxingserver.mapper;
 
+import com.indah.sandboxingserver.model.KatalogData;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.mllib.linalg.Vector;
 import org.apache.spark.mllib.linalg.Vectors;
@@ -45,5 +46,14 @@ public interface DatasetMapper {
         });
 
         return vectorRDD;
+    }
+
+    static KatalogData mapToKatalogData(Row katalog){
+        return KatalogData.builder()
+                .id(katalog.getString(0))
+                .judul(katalog.getString(1))
+                .kategori(katalog.getString(2))
+                .tahun(katalog.getInt(3))
+                .build();
     }
 }

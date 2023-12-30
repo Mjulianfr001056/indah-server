@@ -37,6 +37,13 @@ public class Perizinan {
     @Column(nullable = false)
     private StatusPerizinan status;
 
+    public Perizinan(User user, KatalogData kd) {
+        this.user = user;
+        this.data = kd;
+        this.tanggal = new Date();
+        this.status = StatusPerizinan.PENDING;
+    }
+
     @PrePersist
     private void generateId() {
         if (this.id == null || this.id.isEmpty()) {

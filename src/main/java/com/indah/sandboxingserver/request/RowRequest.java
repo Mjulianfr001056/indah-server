@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class ColumnRequest {
+public class RowRequest {
     String tableId;
-    List<String> columnNames;
+    List<String> RowNames;
 }
