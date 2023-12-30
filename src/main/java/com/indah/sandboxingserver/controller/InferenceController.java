@@ -5,11 +5,10 @@ import com.indah.sandboxingserver.entity.ANOVAUtil;
 import com.indah.sandboxingserver.request.ANOVARequest;
 import com.indah.sandboxingserver.request.ColumnRequest;
 import com.indah.sandboxingserver.request.TTestRequest;
+import com.indah.sandboxingserver.service.InferenceService;
 import lombok.var;
-import org.apache.commons.math3.stat.inference.TestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.indah.sandboxingserver.service.InferenceService;
 
 @RestController
 @RequestMapping("/api/v1/inference")
