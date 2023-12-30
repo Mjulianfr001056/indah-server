@@ -4,10 +4,15 @@ package com.indah.sandboxingserver.controller;
 import com.indah.sandboxingserver.config.ServerResponse;
 import com.indah.sandboxingserver.db.DBManager;
 import com.indah.sandboxingserver.request.ColumnRequest;
+import com.indah.sandboxingserver.request.DataRequest;
+import com.indah.sandboxingserver.request.KatalogRequest;
 import com.indah.sandboxingserver.request.RowRequest;
 import com.indah.sandboxingserver.response.GetTableResponse;
+import com.indah.sandboxingserver.service.PerizinanService;
 import lombok.var;
+import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+import org.apache.spark.sql.functions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,11 +25,8 @@ public class MainController {
     @Autowired
     DBManager dbManager;
 
-    @GetMapping()
-    public ServerResponse getTable() {
-        var tabel = dbManager.getTable("data_sampel2");
-        return new ServerResponse(tabel.toJSON().collectAsList());
-    }
+    @Autowired
+    PerizinanService perizinanService;
 
     @GetMapping("/{tableId}")
     public ServerResponse getTable(@PathVariable String tableId) {
@@ -37,13 +39,22 @@ public class MainController {
 
 
     @PostMapping("/katalog")
-    public ServerResponse getKatalog() {
+    public ServerResponse getKatalog(@RequestBody KatalogRequest request) {
         var tableName = "katalog_data";
         var columnNames = Arrays.asList("id", "judul");
+        String userId = request.getUserId();
 
-        var response = dbManager.getTable(tableName, columnNames);
+        Dataset<Row> katalog = dbManager.getTable(tableName, columnNames);
 
-        return new ServerResponse(response.toJSON().collectAsList());
+        Dataset<Row> izin = dbManager.getTable("perizinan", Arrays.asList("status", "id_data", "id_user"));
+        izin = izin.filter(izin.col("id_user").equalTo(userId));
+
+        Dataset<Row> joined = katalog.join(izin, katalog.col("id").equalTo(izin.col("id_data")), "left_outer");
+        joined = joined.withColumn("status",
+                        functions.when(joined.col("status").equalTo("DISETUJUI"), "GRANTED").otherwise("PROHIBITED"))
+                .drop("id_data", "id_user");
+
+        return new ServerResponse(joined.toJSON().collectAsList());
     }
 
     @PostMapping()
@@ -90,5 +101,15 @@ public class MainController {
 
 
         return new ServerResponse(table.toJSON().collectAsList());
+    }
+
+    @PostMapping("/request")
+    public ServerResponse sendRequest(@RequestBody DataRequest request) {
+        var userId = request.getUserId();
+        var tableId = request.getTableId();
+
+        perizinanService.savePerizinan(userId, tableId);
+
+        return new ServerResponse("Request sent");
     }
 }

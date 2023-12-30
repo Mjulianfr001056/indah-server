@@ -2,10 +2,9 @@ package com.indah.sandboxingserver;
 
 import com.indah.sandboxingserver.db.DBManager;
 import com.indah.sandboxingserver.mapper.DatasetMapper;
-import com.indah.sandboxingserver.model.Role;
-import com.indah.sandboxingserver.model.StatusPerizinan;
-import com.indah.sandboxingserver.model.User;
+import com.indah.sandboxingserver.model.*;
 import com.indah.sandboxingserver.repository.PerizinanRepository;
+import com.indah.sandboxingserver.repository.UserRepository;
 import lombok.var;
 import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.distribution.RealDistribution;
@@ -22,16 +21,15 @@ import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.mllib.linalg.Matrix;
 import org.apache.spark.mllib.stat.MultivariateStatisticalSummary;
 import org.apache.spark.mllib.stat.Statistics;
-import org.apache.spark.sql.Dataset;
-import org.apache.spark.sql.Encoders;
-import org.apache.spark.sql.Row;
-import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.*;
+
+import static org.apache.spark.sql.functions.col;
 
 @SpringBootTest
 class SandboxingServerApplicationTests {
@@ -44,6 +42,9 @@ class SandboxingServerApplicationTests {
 
     @Autowired
     private PerizinanRepository perizinanRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
     @DisplayName("Test koneksi ke SparkSession")
@@ -453,4 +454,51 @@ class SandboxingServerApplicationTests {
         System.out.println("Asymp. Sig.: " + pValue);
     }
 
+    @Test
+    @DisplayName("Test get data based on izin")
+    void testGetDataBasedOnIzin() {
+        var tableName = "katalog_data";
+        var columnNames = Arrays.asList("id", "judul");
+        var userId = "102";
+        Dataset<Row> katalog = dbManager.getTable(tableName, columnNames);
+
+        Dataset<Row> izin = dbManager.getTable("perizinan", Arrays.asList("status", "id_data", "id_user"));
+        izin = izin.filter(izin.col("id_user").equalTo(userId));
+
+        Dataset<Row> joined = katalog.join(izin, katalog.col("id").equalTo(izin.col("id_data")), "left_outer");
+        joined = joined.withColumn("status",
+                functions.when(joined.col("status").equalTo("DISETUJUI"), "GRANTED").otherwise("PROHIBITED"))
+                .drop("id_data", "id_user");
+
+        joined.show();
+    }
+
+    @Test
+    @DisplayName("Save perizinan")
+    void testPerizinan(){
+        var userId = "102";
+        var tableId = "SAMPEL1";
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        User user = userOptional.orElse(null);
+
+        if (user == null) {
+            return;
+        }
+
+        var katalog = dbManager.getTable("katalog_data");
+
+
+        var filteredRows = katalog.filter(col("id").equalTo(tableId));
+
+        Row matchingRow = filteredRows.first();
+
+        KatalogData kd = DatasetMapper.mapToKatalogData(matchingRow);
+
+        Optional<Perizinan> existingPerizinanOptional = perizinanRepository.findByUserAndData(user, kd);
+
+        Perizinan existingPerizinan = existingPerizinanOptional.orElse(new Perizinan(user, kd));
+
+        perizinanRepository.save(existingPerizinan);
+    }
 }

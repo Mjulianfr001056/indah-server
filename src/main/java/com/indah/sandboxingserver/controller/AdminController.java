@@ -46,8 +46,6 @@ public class AdminController {
                 .join(dataTable, perizinanTable.col("id_data").equalTo(dataTable.col("id_data")))
                 .drop("id_user", "id_data");
 
-        perizinanTable.show();
-
         List<Row> aggregate = perizinanTable.groupBy("status")
                 .count()
                 .collectAsList();

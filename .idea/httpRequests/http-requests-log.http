@@ -1,3 +1,148 @@
+POST http://localhost:8080/api/v1/data/katalog
+Content-Type: application/json
+Content-Length: 49
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+    "userId": "102",
+    "tableId": "SAMPEL1"
+}
+
+<> 2023-12-25T065450.200.json
+
+###
+
+POST http://localhost:8080/api/v1/data/katalog
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-12-25T065414.400.json
+
+###
+
+GET http://localhost:8080/api/v1/data/katalog
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-12-25T065355.500.json
+
+###
+
+POST http://localhost:8080/api/v1/data/request
+Content-Type: application/json
+Content-Length: 45
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL1",
+  "userId": "102"
+}
+
+<> 2023-12-25T064503.200.json
+
+###
+
+POST http://localhost:8080/api/v1/data/katalog
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-12-25T050039.200.json
+
+###
+
+GET http://localhost:8080/api/v1/data/katalog
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-12-25T050021.500.json
+
+###
+
+GET http://localhost:8080/api/v1/data
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-12-25T050002.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/mann-whitney
+Content-Type: application/json
+Content-Length: 63
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL7",
+  "columnNames": ["skorY", "skorT"]
+}
+
+<> 2023-12-25T040517.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/wilcoxon
+Content-Type: application/json
+Content-Length: 57
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL6",
+  "columnNames": ["Xa", "Xb"]
+}
+
+<> 2023-12-25T035122.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/ttest
+Content-Type: application/json
+Content-Length: 89
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL4",
+  "columnNames": "ip1",
+  "alternative": "LESS",
+  "mu": 3.35
+}
+
+<> 2023-12-25T030359.200.json
+
+###
+
+POST http://localhost:8080/api/v1/inference/paired-ttest
+Content-Type: application/json
+Content-Length: 71
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "tableId": "SAMPEL3",
+  "columnNames": ["bbsebelum", "bbsesudah"]
+}
+
+<> 2023-12-25T021736.200.json
+
+###
+
 POST http://localhost:8080/api/v1/inference/mann-whitney
 Content-Type: application/json
 Content-Length: 63
@@ -623,168 +768,6 @@ User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
 Accept-Encoding: br,deflate,gzip,x-gzip
 
 <> 2023-12-08T231618.200.json
-
-###
-
-POST https://2d60-103-123-250-164.ngrok-free.app/api/v1/desc/summary
-Content-Type: application/json
-Content-Length: 74
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-    "tableName": "data_sampel2",
-    "columnNames": ["c2021", "c2020"]
-}
-
-<> 2023-12-04T122043.500.json
-
-###
-
-POST https://f5a7-103-123-250-164.ngrok-free.app/api/v1/desc/summary
-Content-Type: application/json
-Content-Length: 74
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-    "tableName": "data_sampel2",
-    "columnNames": ["c2021", "c2020"]
-}
-
-<> 2023-12-04T122028.404.txt
-
-###
-
-POST http://localhost:8080/api/v1/data/ket
-Content-Type: application/json
-Content-Length: 28
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-    "tableId": "SAMPEL1"
-}
-
-<> 2023-12-04T093841.200.json
-
-###
-
-POST http://localhost:8080/api/v1/data/ket
-Content-Type: application/json
-Content-Length: 28
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-    "tableId": "SAMPEL1"
-}
-
-<> 2023-12-02T174810.200.json
-
-###
-
-GET http://localhost:8080/api/v1/data/SAMPEL3
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-12-02T174757.200.json
-
-###
-
-POST http://localhost:8080/api/v1/data/ket
-Content-Type: application/json
-Content-Length: 28
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-    "tableId": "SAMPEL1"
-}
-
-<> 2023-12-02T170533.200.json
-
-###
-
-POST http://localhost:8080/api/v1/data/ket
-Content-Type: application/json
-Content-Length: 28
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-    "tableId": "SAMPEL2"
-}
-
-<> 2023-12-02T161202.200.json
-
-###
-
-POST http://localhost:8080/api/v1/data/ket
-Content-Type: application/json
-Content-Length: 28
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-    "tableId": "SAMPEL2"
-}
-
-<> 2023-12-02T161021.200.json
-
-###
-
-POST http://localhost:8080/api/v1/data/ket
-Content-Type: application/json
-Content-Length: 28
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-    "tableId": "SAMPEL2"
-}
-
-<> 2023-12-02T160923.200.json
-
-###
-
-POST http://localhost:8080/api/v1/data/ket
-Content-Type: application/json
-Content-Length: 28
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-    "tableId": "SAMPEL2"
-}
-
-<> 2023-12-02T160758.200.json
-
-###
-
-PATCH http://localhost:8080/api/v1/admin/izin
-Content-Type: application/json
-Content-Length: 56
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.8)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-    "requestId": "102",
-    "newStatus": "DISETUJUI"
-}
-
-<> 2023-12-02T160749.200.json
 
 ###
 
